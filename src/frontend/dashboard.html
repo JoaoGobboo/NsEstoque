@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+<<<<<<< HEAD
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - NsEstoque</title>
     <link rel="stylesheet" href="css/styles.css">
@@ -290,11 +291,87 @@
         </div>
     </div>
     <script src="js/common.js"></script>
+=======
+    <title>Dashboard</title>
+</head>
+<body>
+    <header>
+        <h1>Dashboard</h1>
+        <button id="logout">Sair</button>
+    </header>
+
+    <main>
+        <section id="user-info">
+            <!-- Informações do usuário serão carregadas via JS -->
+        </section>
+
+        <section id="products-section">
+            <div class="section-header">
+                <h2>Produtos</h2>
+                <div class="section-buttons">
+                    <button id="manage-users">Gerenciar Usuários</button>
+                    <button id="add-product">Cadastrar Produto</button>
+                </div>
+            </div>
+            <table id="products-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Quantidade</th>
+                        <th>Preço Compra</th>
+                        <th>Preço Venda</th>
+                        <th>Descrição</th>
+                        <th>Data Criação</th>
+                        <th>Data Atualização</th>
+                        <th>Editar</th>
+                        <th>Excluir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Linhas dos produtos serão inseridas via JS -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <!-- Modal de cadastro -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cadastrar Produto</h2>
+            <form id="product-form">
+                <label>Nome:</label>
+                <input type="text" name="nome" required>
+
+                <label>Categoria:</label>
+                <input type="text" name="categoria" required>
+
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" required>
+
+                <label>Preço Compra:</label>
+                <input type="number" step="0.01" name="preco_compra" required>
+
+                <label>Preço Venda:</label>
+                <input type="number" step="0.01" name="preco_venda" required>
+
+                <label>Descrição:</label>
+                <textarea name="descricao"></textarea>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+
+>>>>>>> 82484c8 (Adiciona dashboard, faz consulta e delete de produtos)
     <script src="js/dashboard.js"></script>
 </body>
 </html>
 
 <style>
+<<<<<<< HEAD
     /* Estilos específicos do dashboard */
     .dashboard-page {
         display: flex;
@@ -320,11 +397,26 @@
     }
 
     .header-content {
+=======
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+        color: #333;
+    }
+
+    header {
+        background-color: #4CAF50;
+        color: white;
+        padding: 20px;
+>>>>>>> 82484c8 (Adiciona dashboard, faz consulta e delete de produtos)
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 
+<<<<<<< HEAD
     .header-content h1 {
         margin: 0;
         font-size: 1.5rem;
@@ -668,3 +760,135 @@
         });
     });
 </script>
+=======
+    button {
+        padding: 8px 16px;
+        border: none;
+        background-color: white;
+        color: #4CAF50;
+        cursor: pointer;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+
+    button:hover {
+        background-color: #e8f5e9;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    #user-info p {
+        margin: 8px 0;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    th, td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: left;
+    }
+
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .section-buttons button {
+        margin-left: 10px;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 4px;
+        border: none;
+        background-color: #2196F3;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .section-buttons button:hover {
+        background-color: #1976D2;
+    }
+
+    /* Modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        position: relative;
+    }
+
+    .modal-content h2 {
+        margin-top: 0;
+    }
+
+    .close {
+        color: #aaa;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: black;
+    }
+
+    #product-form input, #product-form textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0 15px 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    #product-form button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #product-form button:hover {
+        background-color: #45a049;
+    }
+</style>
+>>>>>>> 82484c8 (Adiciona dashboard, faz consulta e delete de produtos)
