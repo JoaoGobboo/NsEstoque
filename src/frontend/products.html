@@ -1,135 +1,485 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Produtos</title>
+    <title>Produtos - NsEstoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <section id="products-section">
-    <div class="section-header">
-        <h2>Produtos</h2>
-        <div class="section-buttons">
-            <button id="manage-users">Gerenciar Usuários</button>
-            <button id="add-product">Cadastrar Produto</button>
+<body class="dashboard-page">
+    <!-- Sidebar de navegação -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">NsEstoque</div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <h4 id="user-name">Carregando...</h4>
+                <p id="user-role">Carregando...</p>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="products.html">
+                        <i class="fas fa-box"></i>
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <!-- Cabeçalho da página -->
+        <header class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-box"></i> Produtos</h1>
+                <div class="header-actions">
+                    <div class="user-info-display">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="header-user-name">Usuário</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo da página -->
+        <div class="page-content">
+            <!-- Filtros e ações -->
+            <section class="filters-section">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="filters-container">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="filter-category" class="form-label">Categoria</label>
+                                        <select id="filter-category" class="form-control">
+                                            <option value="">Todas as categorias</option>
+                                            <!-- Categorias serão carregadas via JS -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="filter-stock" class="form-label">Estoque</label>
+                                        <select id="filter-stock" class="form-control">
+                                            <option value="">Todos</option>
+                                            <option value="in-stock">Em estoque</option>
+                                            <option value="low-stock">Estoque baixo</option>
+                                            <option value="out-of-stock">Sem estoque</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label for="sort-by" class="form-label">Ordenar por</label>
+                                        <select id="sort-by" class="form-control">
+                                            <option value="name-asc">Nome (A-Z)</option>
+                                            <option value="name-desc">Nome (Z-A)</option>
+                                            <option value="price-asc">Preço (menor-maior)</option>
+                                            <option value="price-desc">Preço (maior-menor)</option>
+                                            <option value="stock-asc">Estoque (menor-maior)</option>
+                                            <option value="stock-desc">Estoque (maior-menor)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label class="form-label">&nbsp;</label>
+                                        <div class="d-flex">
+                                            <button id="apply-filters" class="btn btn-primary">
+                                                <i class="fas fa-filter"></i> Aplicar Filtros
+                                            </button>
+                                            <button id="reset-filters" class="btn btn-outline ml-2">
+                                                <i class="fas fa-undo"></i> Limpar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lista de produtos -->
+            <section class="products-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Lista de Produtos</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" id="export-products">
+                                <i class="fas fa-file-export"></i> Exportar
+                            </button>
+                            <button class="btn btn-primary" id="add-product">
+                                <i class="fas fa-plus"></i> Novo Produto
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="products-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Categoria</th>
+                                        <th>Quantidade</th>
+                                        <th>Preço Compra</th>
+                                        <th>Preço Venda</th>
+                                        <th>Descrição</th>
+                                        <th>Data Criação</th>
+                                        <th>Data Atualização</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Linhas dos produtos serão inseridas via JS -->
+                                    <tr>
+                                        <td colspan="10" class="text-center">Carregando produtos...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Mostrando <span id="showing-start">0</span> a <span id="showing-end">0</span> de <span id="total-items">0</span> produtos
+                            </div>
+                            <div class="pagination-controls">
+                                <button id="prev-page" class="btn btn-sm btn-outline" disabled>
+                                    <i class="fas fa-chevron-left"></i> Anterior
+                                </button>
+                                <div class="page-numbers" id="page-numbers">
+                                    <!-- Números de página serão inseridos via JS -->
+                                </div>
+                                <button id="next-page" class="btn btn-sm btn-outline" disabled>
+                                    Próximo <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal de cadastro/edição de produto -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Cadastrar Produto</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="product-form">
+                    <input type="hidden" id="product-id" name="id">
+                    
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">Categoria:</label>
+                        <input type="text" id="categoria" name="categoria" class="form-control" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="quantidade" class="form-label">Quantidade:</label>
+                                <input type="number" id="quantidade" name="quantidade" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="preco_compra" class="form-label">Preço Compra:</label>
+                                <input type="number" id="preco_compra" name="preco_compra" step="0.01" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="preco_venda" class="form-label">Preço Venda:</label>
+                                <input type="number" id="preco_venda" name="preco_venda" step="0.01" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea id="descricao" name="descricao" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-product">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submit-product">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <table id="products-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Categoria</th>
-                <th>Quantidade</th>
-                <th>Preço Compra</th>
-                <th>Preço Venda</th>
-                <th>Descrição</th>
-                <th>Data Criação</th>
-                <th>Data Atualização</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Linhas dos produtos serão inseridas via JS -->
-        </tbody>
-    </table>
-</section>
-
-<!-- Modal de cadastro -->
-<div id="product-modal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Cadastrar Produto</h2>
-        <form id="product-form">
-            <label>Nome:</label>
-            <input type="text" name="nome" required>
-            
-            <label>Categoria:</label>
-            <input type="text" name="categoria" required>
-            
-            <label>Quantidade:</label>
-            <input type="number" name="quantidade" required>
-            
-            <label>Preço Compra:</label>
-            <input type="number" step="0.01" name="preco_compra" required>
-            
-            <label>Preço Venda:</label>
-            <input type="number" step="0.01" name="preco_venda" required>
-            
-            <label>Descrição:</label>
-            <textarea name="descricao"></textarea>
-            
-            <button type="submit">Cadastrar</button>
-        </form>
+    <!-- Modal de confirmação de exclusão -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2>Confirmar Exclusão</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o produto <strong id="delete-product-name"></strong>?</p>
+                <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Esta ação não pode ser desfeita.</p>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancel-delete">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete">Excluir</button>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <script src="js/common.js"></script>
+    <script src="js/products.js"></script>
 </body>
 </html>
 
 <style>
-    /* Modal */
-    .modal {
-        display: none; /* Oculto por padrão */
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
+    /* Estilos específicos da página de produtos */
+    .filters-section {
+        margin-bottom: var(--spacing-lg);
     }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 50px auto;
-        padding: 20px;
-        border-radius: 8px;
-        width: 400px;
-        position: relative;
+    .filters-container {
+        display: flex;
+        flex-wrap: wrap;
     }
 
-    .modal-content h2 {
-        margin-top: 0;
+    .d-flex {
+        display: flex;
     }
 
-    .close {
-        color: #aaa;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 28px;
-        font-weight: bold;
+    .ml-2 {
+        margin-left: var(--spacing-sm);
+    }
+
+    /* Paginação */
+    .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .pagination-info {
+        color: var(--dark-gray);
+        font-size: 0.9rem;
+    }
+
+    .pagination-controls {
+        display: flex;
+        align-items: center;
+    }
+
+    .page-numbers {
+        display: flex;
+        margin: 0 var(--spacing-sm);
+    }
+
+    .page-numbers button {
+        margin: 0 var(--spacing-xs);
+        min-width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: var(--border-radius-sm);
+        background-color: transparent;
+        border: 1px solid var(--medium-gray);
+        color: var(--text-color);
         cursor: pointer;
     }
 
-    .close:hover {
-        color: black;
+    .page-numbers button.active {
+        background-color: var(--primary-color);
+        color: var(--white);
+        border-color: var(--primary-color);
     }
 
-    #product-form input, #product-form textarea {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0 15px 0;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
+    /* Modal pequeno */
+    .modal-sm {
+        max-width: 400px;
     }
 
-    #product-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
+    .text-danger {
+        color: var(--danger-color);
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    /* Botão de perigo */
+    .btn-danger {
+        background-color: var(--danger-color);
+        color: var(--white);
+    }
+
+    .btn-danger:hover {
+        background-color: #d32f2f;
+    }
+
+    /* Ações na tabela */
+    .action-buttons {
+        display: flex;
+        gap: var(--spacing-xs);
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border: none;
-        border-radius: 4px;
-        font-weight: bold;
         cursor: pointer;
+        color: var(--white);
+        font-size: 0.8rem;
     }
 
-    #product-form button:hover {
-        background-color: #45a049;
+    .edit-btn {
+        background-color: var(--primary-color);
+    }
+
+    .delete-btn {
+        background-color: var(--danger-color);
     }
 </style>
+
+<script>
+    // Script para toggle da sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const body = document.body;
+        
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function() {
+                body.classList.toggle('sidebar-collapsed');
+            });
+        }
+
+        // Sincronizar os botões de logout
+        const logoutBtn = document.getElementById('logout');
+        const headerLogoutBtn = document.getElementById('header-logout');
+        
+        if (logoutBtn && headerLogoutBtn) {
+            headerLogoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Acionar o evento de logout original
+                logoutBtn.click();
+            });
+        }
+
+        // Modal de produto
+        const addProductBtn = document.getElementById('add-product');
+        const productModal = document.getElementById('product-modal');
+        const closeBtn = document.querySelector('#product-modal .close');
+        const cancelBtn = document.getElementById('cancel-product');
+        
+        if (addProductBtn && productModal) {
+            addProductBtn.addEventListener('click', function() {
+                // Resetar o formulário e configurar para modo de adição
+                document.getElementById('product-form').reset();
+                document.getElementById('modal-title').textContent = 'Cadastrar Produto';
+                document.getElementById('submit-product').textContent = 'Cadastrar';
+                document.getElementById('product-id').value = '';
+                productModal.style.display = 'block';
+            });
+        }
+        
+        if (closeBtn && productModal) {
+            closeBtn.addEventListener('click', function() {
+                productModal.style.display = 'none';
+            });
+        }
+        
+        if (cancelBtn && productModal) {
+            cancelBtn.addEventListener('click', function() {
+                productModal.style.display = 'none';
+            });
+        }
+        
+        // Modal de exclusão
+        const deleteModal = document.getElementById('delete-modal');
+        const closeDeleteBtn = document.querySelector('#delete-modal .close');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        
+        if (closeDeleteBtn && deleteModal) {
+            closeDeleteBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+        }
+        
+        if (cancelDeleteBtn && deleteModal) {
+            cancelDeleteBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+        }
+        
+        // Fechar modais ao clicar fora deles
+        window.addEventListener('click', function(event) {
+            if (event.target == productModal) {
+                productModal.style.display = 'none';
+            }
+            if (event.target == deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Simulação de paginação (para demonstração)
+        const pageNumbers = document.getElementById('page-numbers');
+        if (pageNumbers) {
+            // Criar botões de página para demonstração
+            for (let i = 1; i <= 5; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                if (i === 1) pageBtn.classList.add('active');
+                pageNumbers.appendChild(pageBtn);
+            }
+        }
+    });
+</script>

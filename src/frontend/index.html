@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NsEstoque - Sistema de Gestão de Estoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">NsEstoque</div>
+                <ul class="nav-links">
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="products.html">Produtos</a></li>
+                    <li><a href="users.html">Usuários</a></li>
+                    <li><a href="login.html" class="btn btn-outline">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h1 class="fade-in">Gestão de Estoque Simplificada</h1>
+                    <p class="fade-in">Controle seu inventário de forma eficiente e intuitiva. Acompanhe produtos, gerencie usuários e tome decisões baseadas em dados.</p>
+                    <div class="hero-buttons fade-in">
+                        <a href="login.html" class="btn btn-primary">Começar Agora</a>
+                        <a href="#features" class="btn btn-outline">Saiba Mais</a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="hero-image fade-in">
+                        <img src="https://via.placeholder.com/600x400" alt="NsEstoque Dashboard">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="text-center">Recursos Principais</h2>
+            <div class="row">
+                <div class="col">
+                    <div class="feature-card card slide-in">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <h3>Gestão de Produtos</h3>
+                            <p>Cadastre, edite e remova produtos do seu inventário com facilidade. Acompanhe quantidades, preços e histórico.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="feature-card card slide-in">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Dashboard Intuitivo</h3>
+                            <p>Visualize métricas importantes do seu negócio em um painel intuitivo e personalizável.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="feature-card card slide-in">
+                        <div class="card-body">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3>Controle de Usuários</h3>
+                            <p>Gerencie permissões e acesso ao sistema de forma segura e eficiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Pronto para otimizar seu estoque?</h2>
+                <p>Comece a usar o NsEstoque hoje mesmo e transforme a gestão do seu inventário.</p>
+                <a href="login.html" class="btn btn-primary">Acessar Sistema</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="logo">NsEstoque</div>
+                    <p>Sistema de gestão de estoque simples e eficiente para o seu negócio.</p>
+                </div>
+                <div class="col">
+                    <h4>Links Rápidos</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="dashboard.html">Dashboard</a></li>
+                        <li><a href="products.html">Produtos</a></li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <h4>Contato</h4>
+                    <p>Email: contato@nsestoque.com</p>
+                    <p>Telefone: (00) 1234-5678</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 NsEstoque. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JS -->
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+<style>
+    /* Estilos específicos da página inicial */
+    .hero {
+        padding: var(--spacing-xl) 0;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: var(--spacing-md);
+        color: var(--text-color);
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+        margin-bottom: var(--spacing-lg);
+        color: var(--dark-gray);
+        max-width: 600px;
+    }
+
+    .hero-buttons {
+        display: flex;
+        gap: var(--spacing-md);
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .hero-image {
+        max-width: 100%;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .features {
+        padding: var(--spacing-xl) 0;
+        background-color: var(--white);
+    }
+
+    .features h2 {
+        margin-bottom: var(--spacing-xl);
+    }
+
+    .feature-card {
+        text-align: center;
+        padding: var(--spacing-lg);
+        height: 100%;
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .cta {
+        padding: var(--spacing-xl) 0;
+        background-color: var(--primary-color);
+        color: var(--white);
+        text-align: center;
+    }
+
+    .cta h2 {
+        color: var(--white);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .cta p {
+        margin-bottom: var(--spacing-lg);
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cta .btn-primary {
+        background-color: var(--white);
+        color: var(--primary-color);
+    }
+
+    .cta .btn-primary:hover {
+        background-color: var(--light-gray);
+    }
+
+    .footer {
+        padding: var(--spacing-xl) 0 var(--spacing-lg);
+        background-color: #2c3e50;
+        color: var(--white);
+    }
+
+    .footer .logo {
+        margin-bottom: var(--spacing-md);
+    }
+
+    .footer h4 {
+        color: var(--white);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .footer-links {
+        list-style: none;
+    }
+
+    .footer-links li {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .footer-links a {
+        color: var(--medium-gray);
+        transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--white);
+        text-decoration: none;
+    }
+
+    .copyright {
+        margin-top: var(--spacing-xl);
+        padding-top: var(--spacing-md);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--medium-gray);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .hero {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .hero-buttons {
+            justify-content: center;
+        }
+
+        .hero-image {
+            margin-top: var(--spacing-lg);
+        }
+
+        .feature-card {
+            margin-bottom: var(--spacing-lg);
+        }
+    }
+</style>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários - NsEstoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-page">
+    <!-- Sidebar de navegação -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">NsEstoque</div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <h4 id="user-name">Carregando...</h4>
+                <p id="user-role">Carregando...</p>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html">
+                        <i class="fas fa-box"></i>
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <!-- Cabeçalho da página -->
+        <header class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-users"></i> Usuários</h1>
+                <div class="header-actions">
+                    <div class="user-info-display">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="header-user-name">Usuário</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo da página -->
+        <div class="page-content">
+            <!-- Estatísticas de usuários -->
+            <section class="stats-section">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 class="stat-value" id="total-users">0</h3>
+                                <p class="stat-label">Total de Usuários</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-user-check"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 class="stat-value" id="active-users">0</h3>
+                                <p class="stat-label">Usuários Ativos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 class="stat-value" id="new-users">0</h3>
+                                <p class="stat-label">Novos Usuários (30 dias)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card">
+                            <div class="stat-icon bg-danger">
+                                <i class="fas fa-user-slash"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 class="stat-value" id="inactive-users">0</h3>
+                                <p class="stat-label">Usuários Inativos</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Lista de usuários -->
+            <section class="users-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Lista de Usuários</h2>
+                        <div class="card-actions">
+                            <button class="btn btn-outline" id="export-users">
+                                <i class="fas fa-file-export"></i> Exportar
+                            </button>
+                            <button class="btn btn-primary" id="add-user">
+                                <i class="fas fa-plus"></i> Novo Usuário
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table" id="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Cargo</th>
+                                        <th>Status</th>
+                                        <th>Último Acesso</th>
+                                        <th>Data Criação</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Linhas dos usuários serão inseridas via JS -->
+                                    <tr>
+                                        <td colspan="8" class="text-center">Carregando usuários...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="pagination-container">
+                            <div class="pagination-info">
+                                Mostrando <span id="showing-start">0</span> a <span id="showing-end">0</span> de <span id="total-items">0</span> usuários
+                            </div>
+                            <div class="pagination-controls">
+                                <button id="prev-page" class="btn btn-sm btn-outline" disabled>
+                                    <i class="fas fa-chevron-left"></i> Anterior
+                                </button>
+                                <div class="page-numbers" id="page-numbers">
+                                    <!-- Números de página serão inseridos via JS -->
+                                </div>
+                                <button id="next-page" class="btn btn-sm btn-outline" disabled>
+                                    Próximo <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal de cadastro/edição de usuário -->
+    <div id="user-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Cadastrar Usuário</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="user-form">
+                    <input type="hidden" id="user-id" name="id">
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="nome" class="form-label">Nome:</label>
+                                <input type="text" id="nome" name="nome" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="senha" class="form-label">Senha:</label>
+                                <div class="password-field">
+                                    <input type="password" id="senha" name="senha" class="form-control" required>
+                                    <button type="button" class="password-toggle">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="cargo" class="form-label">Cargo:</label>
+                                <select id="cargo" name="cargo" class="form-control" required>
+                                    <option value="">Selecione um cargo</option>
+                                    <option value="admin">Administrador</option>
+                                    <option value="gerente">Gerente</option>
+                                    <option value="vendedor">Vendedor</option>
+                                    <option value="estoquista">Estoquista</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status" class="form-label">Status:</label>
+                        <div class="toggle-switch">
+                            <input type="checkbox" id="status" name="status" checked>
+                            <label for="status"></label>
+                            <span class="toggle-label">Ativo</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="observacoes" class="form-label">Observações:</label>
+                        <textarea id="observacoes" name="observacoes" class="form-control" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-user">Cancelar</button>
+                        <button type="submit" class="btn btn-primary" id="submit-user">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de confirmação de exclusão -->
+    <div id="delete-modal" class="modal">
+        <div class="modal-content modal-sm">
+            <div class="modal-header">
+                <h2>Confirmar Exclusão</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja excluir o usuário <strong id="delete-user-name"></strong>?</p>
+                <p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Esta ação não pode ser desfeita.</p>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline" id="cancel-delete">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirm-delete">Excluir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/users.js"></script>
+</body>
+</html>
+
+<style>
+    /* Estilos específicos da página de usuários */
+    .stats-section {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .stat-card {
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-md);
+    }
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: var(--spacing-md);
+        color: var(--white);
+        font-size: 1.5rem;
+    }
+
+    .bg-primary {
+        background-color: var(--primary-color);
+    }
+
+    .bg-success {
+        background-color: var(--success-color);
+    }
+
+    .bg-warning {
+        background-color: var(--warning-color);
+    }
+
+    .bg-danger {
+        background-color: var(--danger-color);
+    }
+
+    .stat-details {
+        flex: 1;
+    }
+
+    .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+    .stat-label {
+        color: var(--dark-gray);
+        margin: 0;
+        font-size: 0.9rem;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .toggle-switch label {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+        background-color: var(--medium-gray);
+        border-radius: 12px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .toggle-switch label:after {
+        content: '';
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var(--white);
+        top: 2px;
+        left: 2px;
+        transition: transform 0.3s;
+    }
+
+    .toggle-switch input:checked + label {
+        background-color: var(--success-color);
+    }
+
+    .toggle-switch input:checked + label:after {
+        transform: translateX(26px);
+    }
+
+    .toggle-label {
+        margin-left: var(--spacing-sm);
+    }
+
+    /* Campo de senha com toggle */
+    .password-field {
+        position: relative;
+    }
+
+    .password-field .form-control {
+        padding-right: 40px;
+    }
+
+    .password-toggle {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 40px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: var(--dark-gray);
+    }
+
+    .password-toggle:hover {
+        color: var(--primary-color);
+    }
+
+    /* Status badges */
+    .status-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+
+    .status-active {
+        background-color: rgba(76, 175, 80, 0.1);
+        color: var(--success-color);
+    }
+
+    .status-inactive {
+        background-color: rgba(244, 67, 54, 0.1);
+        color: var(--danger-color);
+    }
+</style>
+
+<script>
+    // Script para toggle da sidebar
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const body = document.body;
+        
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', function() {
+                body.classList.toggle('sidebar-collapsed');
+            });
+        }
+
+        // Sincronizar os botões de logout
+        const logoutBtn = document.getElementById('logout');
+        const headerLogoutBtn = document.getElementById('header-logout');
+        
+        if (logoutBtn && headerLogoutBtn) {
+            headerLogoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Acionar o evento de logout original
+                logoutBtn.click();
+            });
+        }
+
+        // Toggle de visibilidade da senha
+        const passwordToggle = document.querySelector('.password-toggle');
+        const passwordField = document.getElementById('senha');
+        
+        if (passwordToggle && passwordField) {
+            passwordToggle.addEventListener('click', function() {
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                
+                // Alternar ícone
+                const icon = this.querySelector('i');
+                if (type === 'password') {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                } else {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            });
+        }
+
+        // Toggle de status
+        const statusToggle = document.getElementById('status');
+        const toggleLabel = document.querySelector('.toggle-label');
+        
+        if (statusToggle && toggleLabel) {
+            statusToggle.addEventListener('change', function() {
+                toggleLabel.textContent = this.checked ? 'Ativo' : 'Inativo';
+            });
+        }
+
+        // Modal de usuário
+        const addUserBtn = document.getElementById('add-user');
+        const userModal = document.getElementById('user-modal');
+        const closeBtn = document.querySelector('#user-modal .close');
+        const cancelBtn = document.getElementById('cancel-user');
+        
+        if (addUserBtn && userModal) {
+            addUserBtn.addEventListener('click', function() {
+                // Resetar o formulário e configurar para modo de adição
+                document.getElementById('user-form').reset();
+                document.getElementById('modal-title').textContent = 'Cadastrar Usuário';
+                document.getElementById('submit-user').textContent = 'Cadastrar';
+                document.getElementById('user-id').value = '';
+                userModal.style.display = 'block';
+            });
+        }
+        
+        if (closeBtn && userModal) {
+            closeBtn.addEventListener('click', function() {
+                userModal.style.display = 'none';
+            });
+        }
+        
+        if (cancelBtn && userModal) {
+            cancelBtn.addEventListener('click', function() {
+                userModal.style.display = 'none';
+            });
+        }
+        
+        // Modal de exclusão
+        const deleteModal = document.getElementById('delete-modal');
+        const closeDeleteBtn = document.querySelector('#delete-modal .close');
+        const cancelDeleteBtn = document.getElementById('cancel-delete');
+        
+        if (closeDeleteBtn && deleteModal) {
+            closeDeleteBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+        }
+        
+        if (cancelDeleteBtn && deleteModal) {
+            cancelDeleteBtn.addEventListener('click', function() {
+                deleteModal.style.display = 'none';
+            });
+        }
+        
+        // Fechar modais ao clicar fora deles
+        window.addEventListener('click', function(event) {
+            if (event.target == userModal) {
+                userModal.style.display = 'none';
+            }
+            if (event.target == deleteModal) {
+                deleteModal.style.display = 'none';
+            }
+        });
+
+        // Simulação de paginação (para demonstração)
+        const pageNumbers = document.getElementById('page-numbers');
+        if (pageNumbers) {
+            // Criar botões de página para demonstração
+            for (let i = 1; i <= 3; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                if (i === 1) pageBtn.classList.add('active');
+                pageNumbers.appendChild(pageBtn);
+            }
+        }
+
+        // Simulação de estatísticas (para demonstração)
+        document.getElementById('total-users').textContent = '42';
+        document.getElementById('active-users').textContent = '38';
+        document.getElementById('new-users').textContent = '7';
+        document.getElementById('inactive-users').textContent = '4';
+        
+        // Simulação de informações de paginação
+        document.getElementById('showing-start').textContent = '1';
+        document.getElementById('showing-end').textContent = '10';
+        document.getElementById('total-items').textContent = '42';
+    });
+</script>
