@@ -2,228 +2,669 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - NsEstoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-    <header>
-        <h1>Dashboard</h1>
-        <button id="logout">Sair</button>
-    </header>
+<body class="dashboard-page">
+    <!-- Sidebar de navegação -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">NsEstoque</div>
+            <button class="sidebar-toggle" id="sidebar-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="user-info">
+                <h4 id="user-name">Carregando...</h4>
+                <p id="user-role">Carregando...</p>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">
+                    <a href="dashboard.html">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="products.html">
+                        <i class="fas fa-box"></i>
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="users.html">
+                        <i class="fas fa-users"></i>
+                        <span>Usuários</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Sair</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-    <main>
-        <section id="user-info">
-            <!-- Informações do usuário serão carregadas via JS -->
-        </section>
-
-        <section id="products-section">
-            <div class="section-header">
-                <h2>Produtos</h2>
-                <div class="section-buttons">
-                    <button id="manage-users">Gerenciar Usuários</button>
-                    <button id="add-product">Cadastrar Produto</button>
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+        <!-- Cabeçalho da página -->
+        <header class="page-header">
+            <div class="header-content">
+                <h1><i class="fas fa-tachometer-alt"></i> Dashboard</h1>
+                <div class="header-actions">
+                    <div class="user-info-display">
+                        <i class="fas fa-user-circle"></i>
+                        <span id="header-user-name">Usuário</span>
+                    </div>
                 </div>
             </div>
-            <table id="products-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Categoria</th>
-                        <th>Quantidade</th>
-                        <th>Preço Compra</th>
-                        <th>Preço Venda</th>
-                        <th>Descrição</th>
-                        <th>Data Criação</th>
-                        <th>Data Atualização</th>
-                        <th>Editar</th>
-                        <th>Excluir</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Linhas dos produtos serão inseridas via JS -->
-                </tbody>
-            </table>
-        </section>
+        </header>
+
+        <!-- Conteúdo da página -->
+        <div class="page-content">
+            <!-- Cards de resumo -->
+            <section class="summary-cards">
+                <div class="row">
+                    <div class="col">
+                        <div class="card summary-card">
+                            <div class="summary-icon bg-primary">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="total-products">0</h3>
+                                <p>Total de Produtos</p>
+                            </div>
+                            <div class="summary-footer">
+                                <a href="products.html">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card summary-card">
+                            <div class="summary-icon bg-success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="in-stock">0</h3>
+                                <p>Produtos em Estoque</p>
+                            </div>
+                            <div class="summary-footer">
+                                <a href="#">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card summary-card">
+                            <div class="summary-icon bg-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="low-stock">0</h3>
+                                <p>Estoque Baixo</p>
+                            </div>
+                            <div class="summary-footer">
+                                <a href="#">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card summary-card">
+                            <div class="summary-icon bg-danger">
+                                <i class="fas fa-times-circle"></i>
+                            </div>
+                            <div class="summary-info">
+                                <h3 id="out-of-stock">0</h3>
+                                <p>Sem Estoque</p>
+                            </div>
+                            <div class="summary-footer">
+                                <a href="#">Ver detalhes <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Produtos recentes e ações rápidas -->
+            <section class="dashboard-main">
+                <div class="row">
+                    <!-- Produtos recentes -->
+                    <div class="col-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Produtos Recentes</h2>
+                                <div class="card-actions">
+                                    <button class="btn btn-outline" id="refresh-products">
+                                        <i class="fas fa-sync-alt"></i> Atualizar
+                                    </button>
+                                    <button class="btn btn-primary" id="add-product">
+                                        <i class="fas fa-plus"></i> Novo Produto
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="products-table">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                                <th>Categoria</th>
+                                                <th>Quantidade</th>
+                                                <th>Preço Venda</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Linhas dos produtos serão inseridas via JS -->
+                                            <tr>
+                                                <td colspan="6" class="text-center">Carregando produtos...</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <a href="products.html" class="btn btn-outline">
+                                    Ver todos os produtos
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ações rápidas e informações do usuário -->
+                    <div class="col-4">
+                        <!-- Informações do usuário -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h2>Informações do Usuário</h2>
+                            </div>
+                            <div class="card-body">
+                                <div id="user-info" class="user-details">
+                                    <!-- Informações do usuário serão carregadas via JS -->
+                                    <p><strong>Nome:</strong> <span id="detail-user-name">Carregando...</span></p>
+                                    <p><strong>Email:</strong> <span id="detail-user-email">Carregando...</span></p>
+                                    <p><strong>Função:</strong> <span id="detail-user-role">Carregando...</span></p>
+                                    <p><strong>Último acesso:</strong> <span id="detail-user-last-login">Carregando...</span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ações rápidas -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>Ações Rápidas</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-actions">
+                                    <a href="#" class="quick-action-btn" id="manage-users">
+                                        <i class="fas fa-users"></i>
+                                        <span>Gerenciar Usuários</span>
+                                    </a>
+                                    <a href="#" class="quick-action-btn" id="export-data">
+                                        <i class="fas fa-file-export"></i>
+                                        <span>Exportar Dados</span>
+                                    </a>
+                                    <a href="#" class="quick-action-btn" id="generate-report">
+                                        <i class="fas fa-chart-bar"></i>
+                                        <span>Gerar Relatório</span>
+                                    </a>
+                                    <a href="#" class="quick-action-btn" id="system-settings">
+                                        <i class="fas fa-cog"></i>
+                                        <span>Configurações</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
-    <!-- Modal de cadastro -->
+    <!-- Modal de cadastro de produto -->
     <div id="product-modal" class="modal">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Cadastrar Produto</h2>
-            <form id="product-form">
-                <label>Nome:</label>
-                <input type="text" name="nome" required>
+            <div class="modal-header">
+                <h2>Cadastrar Produto</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="product-form">
+                    <div class="form-group">
+                        <label for="nome" class="form-label">Nome:</label>
+                        <input type="text" id="nome" name="nome" class="form-control" required>
+                    </div>
 
-                <label>Categoria:</label>
-                <input type="text" name="categoria" required>
+                    <div class="form-group">
+                        <label for="categoria" class="form-label">Categoria:</label>
+                        <input type="text" id="categoria" name="categoria" class="form-control" required>
+                    </div>
 
-                <label>Quantidade:</label>
-                <input type="number" name="quantidade" required>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="quantidade" class="form-label">Quantidade:</label>
+                                <input type="number" id="quantidade" name="quantidade" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="preco_compra" class="form-label">Preço Compra:</label>
+                                <input type="number" id="preco_compra" name="preco_compra" step="0.01" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="preco_venda" class="form-label">Preço Venda:</label>
+                                <input type="number" id="preco_venda" name="preco_venda" step="0.01" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
 
-                <label>Preço Compra:</label>
-                <input type="number" step="0.01" name="preco_compra" required>
+                    <div class="form-group">
+                        <label for="descricao" class="form-label">Descrição:</label>
+                        <textarea id="descricao" name="descricao" class="form-control" rows="3"></textarea>
+                    </div>
 
-                <label>Preço Venda:</label>
-                <input type="number" step="0.01" name="preco_venda" required>
-
-                <label>Descrição:</label>
-                <textarea name="descricao"></textarea>
-
-                <button type="submit">Cadastrar</button>
-            </form>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" id="cancel-product">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
+    <script src="js/common.js"></script>
     <script src="js/dashboard.js"></script>
 </body>
 </html>
 
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f2f5;
-        color: #333;
-    }
-
-    header {
-        background-color: #4CAF50;
-        color: white;
-        padding: 20px;
+    /* Estilos específicos do dashboard */
+    .dashboard-page {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        min-height: 100vh;
+        background-color: var(--light-gray);
     }
 
-    button {
-        padding: 8px 16px;
-        border: none;
-        background-color: white;
-        color: #4CAF50;
-        cursor: pointer;
-        font-weight: bold;
-        border-radius: 4px;
+    /* Conteúdo principal */
+    .main-content {
+        flex: 1;
+        transition: all 0.3s ease;
     }
 
-    button:hover {
-        background-color: #e8f5e9;
-    }
 
-    main {
-        padding: 20px;
-    }
-
-    #user-info p {
-        margin: 8px 0;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-    }
-
-    th, td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-
-    .section-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-
-    .section-buttons button {
-        margin-left: 10px;
-        padding: 6px 12px;
-        font-size: 14px;
-        border-radius: 4px;
-        border: none;
-        background-color: #2196F3;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-    }
-
-    .section-buttons button:hover {
-        background-color: #1976D2;
-    }
-
-    /* Modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
+    /* Cabeçalho da página */
+    .page-header {
+        background-color: var(--white);
+        box-shadow: var(--shadow-sm);
+        padding: var(--spacing-md) var(--spacing-lg);
+        position: sticky;
         top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0,0,0,0.5);
+        z-index: 99;
     }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 50px auto;
-        padding: 20px;
-        border-radius: 8px;
-        width: 400px;
+    .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header-content h1 {
+        margin: 0;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .header-content h1 i {
+        margin-right: var(--spacing-sm);
+        color: var(--primary-color);
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    .search-box {
+        position: relative;
+        margin-right: var(--spacing-lg);
+    }
+
+    .search-box input {
+        padding: var(--spacing-sm) var(--spacing-md);
+        padding-left: 35px;
+        border: 1px solid var(--medium-gray);
+        border-radius: var(--border-radius-sm);
+        width: 200px;
+    }
+
+    .search-box i {
+        position: absolute;
+        left: var(--spacing-md);
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--dark-gray);
+    }
+
+    .user-dropdown {
         position: relative;
     }
 
-    .modal-content h2 {
-        margin-top: 0;
-    }
-
-    .close {
-        color: #aaa;
-        position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 28px;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .close:hover {
-        color: black;
-    }
-
-    #product-form input, #product-form textarea {
-        width: 100%;
-        padding: 8px;
-        margin: 5px 0 15px 0;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box;
-    }
-
-    #product-form button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        background: transparent;
         border: none;
-        border-radius: 4px;
-        font-weight: bold;
         cursor: pointer;
+        padding: var(--spacing-sm);
     }
 
-    #product-form button:hover {
-        background-color: #45a049;
+    .dropdown-toggle i {
+        margin-right: var(--spacing-xs);
+    }
+
+    .dropdown-toggle .fa-chevron-down {
+        font-size: 0.8rem;
+        margin-left: var(--spacing-xs);
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background-color: var(--white);
+        box-shadow: var(--shadow-md);
+        border-radius: var(--border-radius-sm);
+        min-width: 180px;
+        z-index: 1000;
+        display: none;
+    }
+
+    .dropdown-menu a {
+        display: block;
+        padding: var(--spacing-sm) var(--spacing-md);
+        color: var(--text-color);
+        text-decoration: none;
+    }
+
+    .dropdown-menu a:hover {
+        background-color: var(--light-gray);
+    }
+
+    .dropdown-menu i {
+        margin-right: var(--spacing-sm);
+        width: 16px;
+    }
+
+    .user-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    /* Conteúdo da página */
+    .page-content {
+        padding: var(--spacing-lg);
+    }
+
+    /* Cards de resumo */
+    .summary-cards {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .summary-card {
+        display: flex;
+        align-items: center;
+        padding: var(--spacing-md);
+    }
+
+    .summary-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: var(--spacing-md);
+        font-size: 1.5rem;
+        color: var(--white);
+    }
+
+    .bg-primary {
+        background-color: var(--primary-color);
+    }
+
+    .bg-success {
+        background-color: var(--secondary-color);
+    }
+
+    .bg-warning {
+        background-color: var(--accent-color);
+    }
+
+    .bg-danger {
+        background-color: var(--danger-color);
+    }
+
+    .summary-info {
+        flex: 1;
+    }
+
+    .summary-info h3 {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+
+    .summary-info p {
+        margin: 0;
+        color: var(--dark-gray);
+    }
+
+    .summary-footer {
+        margin-top: var(--spacing-sm);
+        font-size: 0.8rem;
+    }
+
+    .summary-footer a {
+        color: var(--primary-color);
+        text-decoration: none;
+    }
+
+    .summary-footer a i {
+        margin-left: var(--spacing-xs);
+    }
+
+    /* Layout principal do dashboard */
+    .dashboard-main {
+        margin-bottom: var(--spacing-lg);
+    }
+
+    .col-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+    }
+
+    .col-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+
+    /* Cabeçalho do card */
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-actions {
+        display: flex;
+        gap: var(--spacing-sm);
+    }
+
+    /* Tabela responsiva */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    /* Detalhes do usuário */
+    .user-details p {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    /* Ações rápidas */
+    .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+
+    .quick-action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: var(--spacing-md);
+        background-color: var(--light-gray);
+        border-radius: var(--border-radius-md);
+        text-decoration: none;
+        color: var(--text-color);
+        transition: all 0.2s ease;
+    }
+
+    .quick-action-btn:hover {
+        background-color: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-3px);
+    }
+
+    .quick-action-btn i {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-sm);
+    }
+
+    /* Modal de produto */
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--medium-gray);
+        padding-bottom: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: var(--spacing-md);
+        margin-top: var(--spacing-lg);
+    }
+
+    /* Responsividade */
+    @media (max-width: 992px) {
+        .row {
+            flex-direction: column;
+        }
+
+        .col-8, .col-4 {
+            max-width: 100%;
+        }
+
+        .quick-actions {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sidebar {
+            width: 70px;
+        }
+
+        .sidebar span,
+        .sidebar .user-info,
+        .sidebar .logo {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 70px;
+        }
+
+        .search-box {
+            display: none;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .header-content h1 {
+            font-size: 1.2rem;
+        }
+
+        .quick-actions {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
+
+<script>
+    // Scripts específicos do dashboard
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Sincronizar os botões de logout
+        const logoutBtn = document.getElementById('logout');
+        const headerLogoutBtn = document.getElementById('header-logout');
+        
+        if (logoutBtn && headerLogoutBtn) {
+            headerLogoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                // Acionar o evento de logout original
+                logoutBtn.click();
+            });
+        }
+
+        // Modal de produto
+        const addProductBtn = document.getElementById('add-product');
+        const productModal = document.getElementById('product-modal');
+        const closeBtn = document.querySelector('.close');
+        const cancelBtn = document.getElementById('cancel-product');
+        
+        if (addProductBtn && productModal) {
+            addProductBtn.addEventListener('click', function() {
+                productModal.style.display = 'block';
+            });
+        }
+        
+        if (closeBtn && productModal) {
+            closeBtn.addEventListener('click', function() {
+                productModal.style.display = 'none';
+            });
+        }
+        
+        if (cancelBtn && productModal) {
+            cancelBtn.addEventListener('click', function() {
+                productModal.style.display = 'none';
+            });
+        }
+        
+        window.addEventListener('click', function(event) {
+            if (event.target == productModal) {
+                productModal.style.display = 'none';
+            }
+        });
+    });
+</script>

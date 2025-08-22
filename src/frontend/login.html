@@ -1,81 +1,287 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - NsEstoque</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Google Fonts - Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
-<body>
-<div class="login-container">
-    <h2>Login</h2>
-    <form id="loginForm">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Senha" required>
-        <button type="submit">Entrar</button>
-    </form>
-    <div class="message" id="message"></div>
-</div>
+<body class="login-page">
+    <div class="login-wrapper">
+        <div class="login-container card">
+            <div class="login-header">
+                <div class="logo">NsEstoque</div>
+                <h2>Acesso ao Sistema</h2>
+                <p class="login-subtitle">Entre com suas credenciais para acessar o sistema</p>
+            </div>
+            
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" class="form-control" placeholder="Seu email" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="password-header">
+                        <label for="password" class="form-label">Senha</label>
+                    </div>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="Sua senha" required>
+                        <i class="fas fa-eye toggle-password"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group remember-me">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="remember">
+                        <span class="checkmark"></span>
+                        Lembrar-me
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+            </form>
+            
+            <div class="alert" id="message" style="display: none;"></div>
+            
+            <div class="login-footer">
+                <a href="index.html" class="back-to-home">
+                    <i class="fas fa-arrow-left"></i> Voltar para Home
+                </a>
+            </div>
+        </div>
+        
+        <div class="login-info card">
+            <div class="login-info-content">
+                <h3>Bem-vindo ao NsEstoque</h3>
+                <p>Sistema de gestão de estoque simples e eficiente para o seu negócio.</p>
+                
+                <div class="login-features">
+                    <div class="login-feature">
+                        <i class="fas fa-box"></i>
+                        <span>Gestão de Produtos</span>
+                    </div>
+                    <div class="login-feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Dashboard Intuitivo</span>
+                    </div>
+                    <div class="login-feature">
+                        <i class="fas fa-users"></i>
+                        <span>Controle de Usuários</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JS externo -->
+    <script src="./js/auth.js"></script>
 </body>
 </html>
 
-<!-- JS externo -->
-<script src="./js/auth.js"></script>
-
 <style>
-    body {
+    /* Estilos específicos da página de login */
+    .login-page {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background: #f0f2f5;
-        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        padding: var(--spacing-md);
     }
-
+    
+    .login-wrapper {
+        display: flex;
+        max-width: 900px;
+        width: 100%;
+        box-shadow: var(--shadow-lg);
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
+    }
+    
     .login-container {
-        background: #fff;
-        padding: 40px;
-        border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        width: 320px;
+        flex: 1;
+        padding: var(--spacing-xl);
+        background-color: var(--white);
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 0;
     }
-
-    .login-container h2 {
+    
+    .login-header {
         text-align: center;
-        margin-bottom: 20px;
-        color: #333;
+        margin-bottom: var(--spacing-lg);
     }
-
-    input[type="email"],
-    input[type="password"] {
-        width: 100%;
-        padding: 12px;
-        margin: 8px 0 20px 0;
-        border: 1px solid #ccc;
-        border-radius: 5px;
+    
+    .login-header .logo {
+        font-size: 1.8rem;
+        margin-bottom: var(--spacing-sm);
     }
-
-    button {
-        width: 100%;
-        padding: 12px;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 5px;
-        color: white;
-        font-size: 16px;
+    
+    .login-subtitle {
+        color: var(--dark-gray);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .login-form {
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .input-with-icon {
+        position: relative;
+    }
+    
+    .input-with-icon i {
+        position: absolute;
+        left: var(--spacing-md);
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--dark-gray);
+    }
+    
+    .input-with-icon .form-control {
+        padding-left: 40px;
+    }
+    
+    .input-with-icon .toggle-password {
+        left: auto;
+        right: var(--spacing-md);
         cursor: pointer;
     }
-
-    button:hover {
-        background-color: #45a049;
+    
+    .password-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--spacing-xs);
     }
-
-    .message {
+    
+    .forgot-password {
+        font-size: 0.8rem;
+    }
+    
+    .remember-me {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        font-size: 0.9rem;
+        user-select: none;
+    }
+    
+    .checkbox-container input {
+        margin-right: var(--spacing-xs);
+    }
+    
+    .login-btn {
+        width: 100%;
+        padding: var(--spacing-md);
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .login-btn i {
+        margin-right: var(--spacing-xs);
+    }
+    
+    .login-footer {
         text-align: center;
-        margin-top: 15px;
-        font-size: 14px;
+        margin-top: var(--spacing-lg);
+        font-size: 0.9rem;
     }
-
-    .message.success { color: green; }
-    .message.error { color: red; }
+    
+    .back-to-home {
+        display: inline-block;
+        margin-top: var(--spacing-md);
+        font-size: 0.9rem;
+    }
+    
+    .back-to-home i {
+        margin-right: var(--spacing-xs);
+    }
+    
+    /* Painel lateral */
+    .login-info {
+        flex: 1;
+        background-color: var(--primary-color);
+        color: var(--white);
+        padding: var(--spacing-xl);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-radius: 0;
+        box-shadow: none;
+        margin-bottom: 0;
+    }
+    
+    .login-info h3 {
+        color: var(--white);
+        margin-bottom: var(--spacing-md);
+        font-size: 1.8rem;
+    }
+    
+    .login-features {
+        margin-top: var(--spacing-xl);
+    }
+    
+    .login-feature {
+        display: flex;
+        align-items: center;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .login-feature i {
+        font-size: 1.2rem;
+        margin-right: var(--spacing-md);
+        width: 24px;
+        height: 24px;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .login-wrapper {
+            flex-direction: column;
+        }
+        
+        .login-info {
+            display: none;
+        }
+    }
 </style>
+
+<script>
+    // Script para mostrar/ocultar senha
+    document.addEventListener('DOMContentLoaded', function() {
+        const togglePassword = document.querySelector('.toggle-password');
+        const passwordInput = document.querySelector('#password');
+        
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    });
+</script>
