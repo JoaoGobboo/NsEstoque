@@ -24,8 +24,7 @@ form.addEventListener('submit', async (e) => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
 
-            // Redirecionar para dashboard se quiser
-            // window.location.href = './dashboard.html';
+            window.location.href = './dashboard.html';
         } else {
             messageDiv.textContent = data.message || 'Erro ao logar';
             messageDiv.className = 'message error';
